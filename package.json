@@ -1,0 +1,31 @@
+{
+  "name": "catamantamabababoobookakafettu",
+  "version": "1.0.0",
+  "description": "Veebiprogrammeerimise tundides tehtud express.js projekt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ollkall@github.com/ollkall/catamantamabababoobookakafettu.git"
+  },
+  "keywords": [
+    "õppetöö",
+    "veebiprogrammeerimine",
+    "express.js",
+    "TLÜ",
+    "DTI",
+    "Tallinna",
+    "Ülikool"
+  ],
+  "author": "Oliver Kallassalu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ollkall/catamantamabababoobookakafettu/issues"
+  },
+  "homepage": "https://github.com/ollkall/catamantamabababoobookakafettu#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
