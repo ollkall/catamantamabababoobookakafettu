@@ -2,31 +2,33 @@ const express = require("express");
 const dateET = require("./src/dateTimeET");
 const fs = require("fs");
 const bodyparser = require("body-parser");
-//lisan andmebaasiga suhtlemiseks mooduli
-const mysql = require("mysql2");
-//Lisan andmebaasi juurdepääsuinfo
-const dbInfo = require("../../../oliver2025config.js");
 
-// me loome objekti, mis ongi epxress.js programm ja edasi kasutamegi seda
-
+// nüüd async jaoks kasutame mysql2 promise osa
+//const mysql = require("mysql2/promise");
+//const dbInfo = require("../../../oliver2025config.js");
 const app = express();
-// määrame renderdajaks ejs
-
 app.set("view engine", "ejs");
-// määrame kasutamiseks "avaliku" kataloogi
 
+// määrame kasutamiseks "avaliku" kataloogi
 app.use(express.static("public"));
 // päringu URL-i parsimine, eraldame POST osa. False, kui ainult tekst, true, kui ainult infot Ka
 
 app.use(bodyparser.urlencoded({extended: false}));
 
 //loon andmebaasiühenduse
-const conn = mysql.createConnection({
+/* const conn = mysql.createConnection({
 	host: dbInfo.configdata.host,
 	user: dbInfo.configdata.user,
 	password: dbInfo.configdata.passWord,
 	database: dbInfo.configdata.dataBase
-});
+}); */
+
+/* const dbConf = {
+	host: dbInfo.configdata.host,
+	user: dbInfo.configdata.user,
+	password: dbInfo.configdata.passWord,
+	database: dbInfo.configdata.dataBase
+}; */
 
 app.get("/", (req, res)=>{
 	//res.send("Express.js läks edukalt käima!!!");
@@ -91,51 +93,19 @@ app.get("/visitlog", (req, res)=>{
 	});
 });
 
-app.get("/eestifilm", (req, res)=>{
-	res.render("eestifilm");
-});
+// Eesti filmi marsruudid
+const eestifilmRouter = require("./routes/eestifilmRoutes");
+app.use("/eestifilm", eestifilmRouter);
 
-app.get("/eestifilm/filmiinimesed", (req, res)=>{
-	const sqlReq = "SELECT * FROM person";
-	conn.execute(sqlReq, (err, sqlRes)=>{
-		if(err){
-			console.log(err);
-			res.render("filmiinimesed", {personList: []});
-		}
-		else {
-			console.log(sqlRes);
-			res.render("filmiinimesed", {personList: sqlRes});
-		}
-	})
-	//res.render("filmiinimesed");
-});
-
-app.get("/eestifilm/filmiinimesed_add", (req, res)=>{
-	res.render("filmiinimesed_add", {notice: "Ootan sisestust!"});
-});
-
-app.post("/eestifilm/filmiinimesed_add", (req, res)=>{
-	console.log(req.body);
-	// Kas andmed on olemas?
-	if(!req.body.firstNameInput || !req.body.lastNameInput || !req.body.bornInput || req.body.bornInput > new Date()){
-		res.render("filmiinimesed_add", {notice: "Andmed on vigased! Vaata üle!" + req.body});
-	}
-	else {
-		let deceasedDate = null;
-		if(req.body.deceasedInput != ""){
-			deceasedDate = req.body.deceasedInput
-		}
-		let sqlReq = "INSERT INTO person (first_name, last_name, born, deceased) VALUES (?,?,?,?)";
-		conn.execute(sqlReq, [req.body.firstNameInput, req.body.lastNameInput, req.body.bornInput, deceasedDate], (err, sqlRes)=>{
-			if(err){
-				res.render("filmiinimesed_add", {notice: "Tekkis tehniline viga:" + err});
-			}
-			else {
-				res.render("filmiinimesed_add", {notice: "Andmed on salvestatud!"});
-			}
-		});
-	}
-	//res.render("filmiinimesed_add", {notice: "Andmed olemas!" + req.body});
+app.get("/blackjack", (req, res)=>{
+	res.render("blackjack");
 });
 
 app.listen(5204);
+
+/* <select id="personSelect" name="personSelect">
+	<option selected disabled>Vali isik</option>
+	<option value="id_väärtus>Isiku nimi</option>
+	................
+	<option value="18">Maiken pius</option>
+</select> */
