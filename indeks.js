@@ -13,7 +13,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 // päringu URL-i parsimine, eraldame POST osa. False, kui ainult tekst, true, kui ainult infot Ka
 
-app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.urlencoded({extended: true}));
 
 //loon andmebaasiühenduse
 /* const conn = mysql.createConnection({
@@ -97,9 +97,13 @@ app.get("/visitlog", (req, res)=>{
 const eestifilmRouter = require("./routes/eestifilmRoutes");
 app.use("/eestifilm", eestifilmRouter);
 
-app.get("/blackjack", (req, res)=>{
-	res.render("blackjack");
-});
+// Galerii marsruudid
+const galleryphotoupRouter = require("./routes/galleryphotoupRoutes");
+app.use("/galleryphotoupload", galleryphotoupRouter);
+
+// app.get("/blackjack", (req, res)=>{
+	// res.render("blackjack");
+// });
 
 app.listen(5204);
 
