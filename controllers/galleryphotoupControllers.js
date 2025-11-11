@@ -37,7 +37,7 @@ const galleryphotoupPagePost = async (req, res)=>{
 		// Kuna kasutajakontosid veel pole, siis kasutajaid 1
 		const userId = 1;
 		conn = await mysql.createConnection(dbConf);
-		const [result] = await conn.execute(sqlReq, [fileName, req.file.origname, req.body.altInput, req.body.privacyInput, userId]);
+		const [result] = await conn.execute(sqlReq, [fileName, req.file.originalname, req.body.altInput, req.body.privacyInput, userId]);
 		console.log("Salvestati foto id: " + result.insertId);
 		res.render("galleryupload");
 	} 
@@ -52,60 +52,6 @@ const galleryphotoupPagePost = async (req, res)=>{
 			}
 		}
 };
-	
-	// let sqlReq = "INSERT INTO person (first_name, last_name, born, deceased) VALUES (?,?,?,?)";
-	
-	// if(!req.body.firstNameInput || !req.body.lastNameInput || !req.body.bornInput || req.body.bornInput > new Date()){
-		// res.render("filmiinimesed_add", {notice: "Andmed on vigased! Vaata üle!" + req.body});
-		// return;
-	// }
-	// else {
-		// try {
-			// conn = await mysql.createConnection(dbConf);
-			// console.log("Andmebaasiühendus loodud!");
-			// let deceasedDate = null;
-			// if(req.body.deceasedInput != ""){
-				// deceasedDate = req.body.deceasedInput
-			// }
-			// const [results] = await conn.execute(sqlReq, [req.body.firstNameInput, req.body.lastNameInput, req.body.bornInput, deceasedDate]);
-			// console.log("Salvestati kirje id: " + result.insertId);
-			// res.render("filmiinimesed_add", {notice: "Andmed on salvestatud!"});
-		// }
-		// catch(err) {
-			// console.log("VIGA!: " + err)
-		// }
-		// finally {
-			// if(conn) {
-			// await conn.end();
-			// console.log("Andmebaasiühendus suletud!")
-			// }
-		// }
-	// }
-// };
-
-// const filmPositionAddPost = (req, res)=>{
-	// console.log(req.body);
-	//kas andmed on olemas?
-	// if(!req.body.positionNameInput){
-		// res.render("filmiametid_add", {notice: "Palun kirjuta ameti nimetus!"});
-	// }
-	// else {
-		// let positionDescription = null;
-		// if(req.body.positionDescriptionInput != ""){
-			// positionDescription = req.body.positionDescriptionInput;
-		// }
-		// let sqlReq = "INSERT INTO `position` (position_name, description) VALUES (?,?)";
-		// conn.execute(sqlReq, [req.body.positionNameInput, positionDescription], (err, sqlRes)=>{
-			// if(err){
-				// res.render("filmiametid_add", {notice: "Tekkis tehniline viga:" + err});
-			// }
-			// else {
-			//	res.render("filmiametid_add", {notice: "Andmed on salvestatud!"});
-				// res.redirect("/eestifilm/ametid");
-			// }
-		// });
-	// }
-//};
 
 module.exports = {
 	galleryphotoupPage,

@@ -105,6 +105,14 @@ app.use("/galleryphotoupload", galleryphotoupRouter);
 	// res.render("blackjack");
 // });
 
+// Galerii marsruudid
+const photogalleryrouter = require("./routes/photogalleryRoutes");
+app.use("/photogallery", photogalleryrouter);
+
+const uudisedrouter = require("./routes/uudisedRoutes");
+app.use("/uudised", uudisedrouter);
+
+
 app.listen(5204);
 
 /* <select id="personSelect" name="personSelect">
