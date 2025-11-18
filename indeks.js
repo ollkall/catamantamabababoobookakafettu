@@ -109,9 +109,12 @@ app.use("/galleryphotoupload", galleryphotoupRouter);
 const photogalleryrouter = require("./routes/photogalleryRoutes");
 app.use("/photogallery", photogalleryrouter);
 
-const uudisedrouter = require("./routes/uudisedRoutes");
-app.use("/uudised", uudisedrouter);
+// const uudisedrouter = require("./routes/uudisedRoutes");
+// app.use("/uudised", uudisedrouter);
 
+// Konto loomise marsruudid
+const signupRouter = require("./routes/signupRoutes");
+app.use("/signup", signupRouter);
 
 app.listen(5204);
 

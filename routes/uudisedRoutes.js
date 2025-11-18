@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
+// const express = require("express");
+// const router = express.Router();
 
-// kontrollerid
-const {
-	uudisedHome
-} = require("../controllers/uudisedControllers");
+// // kontrollerid
+// const {
+	// uudisedHome
+// } = require("../controllers/uudisedControllers");
 
-router.route("/").get(uudisedHome);
+// router.route("/").get(uudisedHome);
 
-module.exports = router;
+// module.exports = router;
